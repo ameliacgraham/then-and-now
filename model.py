@@ -29,6 +29,18 @@ class User(db.Model):
     location = db.relationship('Location')
 
 
+class Community(db.Model):
+
+    __tablename__ = "communities"
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    location_id = db.Column(db.ForeignKey('locations.id'), nullable=False)
+
+    location = db.relationship("Location")
+
+
+
 
 class SchoolClass(db.Model):
     """Information about a school class. Ex: Class of 2010."""
