@@ -28,6 +28,10 @@ class User(db.Model):
 
     location = db.relationship('Location')
 
+    communities = db.relationship("Community", 
+                                  secondary="users_communities",
+                                  backref="users")
+
 
 class Community(db.Model):
 
@@ -38,6 +42,15 @@ class Community(db.Model):
     location_id = db.Column(db.ForeignKey('locations.id'), nullable=False)
 
     location = db.relationship("Location")
+
+class UserCommunity(db.Model):
+    """Association table between user and community."""
+
+    __tablename__ = "users_communities"
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    community_id = db.Column(db.Integer, db.ForeignKey("communities.id"), nullable=False)
 
 
 
