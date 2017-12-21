@@ -26,6 +26,8 @@ class User(db.Model):
 
     school_class = db.relationship('SchoolClass')
 
+    location = db.relationship('Location')
+
 
 
 class SchoolClass(db.Model):
@@ -44,3 +46,26 @@ class SchoolClass(db.Model):
     # school_class = db.relationship("SchoolClass", 
     #                                     backref=db.backref("users",
     #                                             order_by=school_class_id))
+
+
+
+class Location(db.Model):
+    """Information about a location."""
+
+    __tablename__ = 'locations'
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
+    address = db.Column(db.String(200), nullable=False)
+    postal_code = db.Column(db.String(5), nullable=False)
+    country = db.Column(db.String(100), nullable=False)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Location id: {}, name: {}".format(self.id, self.name)
+
+
+
